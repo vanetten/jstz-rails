@@ -1,6 +1,43 @@
 # Jstz::Rails
 
-TODO: Write a gem description
+This is [jstz.js aka jsTimezoneDetect](https://bitbucket.org/pellepim/jstimezonedetect/) GEMified for the Rails >= 3.1 asset pipeline through the following:
+
+	bundle gem jstz-rails
+	cd jstz-rails
+	mkdir -p vendor/assets/javascripts
+	curl https://bitbucket.org/pellepim/jstimezonedetect/raw/c7ea46531444b600246fe651bc9feb66a7593be5/jstz.js -o vendor/assets/javascripts/jstz.js
+	echo "" >> README.md; echo "# jstz.js appended README #" >> README.md; echo "" >> README.md
+	curl https://bitbucket.org/pellepim/jstimezonedetect/raw/c7ea46531444b600246fe651bc9feb66a7593be5/README.md >> README.md
+	echo "" >> LICENSE; echo "# jstz.js appended LICENSE #" >> LICENSE; echo "" >> LICENSE
+	curl https://bitbucket.org/pellepim/jstimezonedetect/raw/c7ea46531444b600246fe651bc9feb66a7593be5/LICENCE.txt >> LICENSE
+	git add .
+	git commit -am "initial jstz-rails"
+	git remote add origin git@github.com:vanetten/jstz-rails.git
+
+* modify **lib/gridster-rails/version.rb** to match gridster.js version
+
+		VERSION = "0.1.0.1"
+
+* modify **lib/gridster-rails.rb** to subclass Rails::Engine
+
+		class Engine < ::Rails::Engine
+		end
+
+* modify **gridster-rails.gemspec**
+
+		gem.description   = "This gem provides jquery.gridster.js and jquery.gridster.css for your Rails 3 application."
+		gem.summary       = "Use gridster with Rails 3"
+		gem.homepage      = "http://rubygems.org/gems/gridster-rails"
+		gem.files = Dir["{lib,vendor}/**/*"] + ["LICENSE", "README.md"]
+		gem.add_dependency "railties", "~> 3.1"
+
+* build
+
+		rake build
+
+* release
+
+		rake release
 
 ## Installation
 
@@ -18,8 +55,26 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Add to **application.js**
 
+	//= require jstz.js
+
+Add to **your.js** to write browser detected timezone to a cookie
+
+	document.cookie = 'time_zone='+jstz.determine().timezone.name()+';';
+
+Add to **application_controller.rb** to set application's timezone from cookie
+
+	before_filter :set_timezone
+	private
+		def set_timezone
+			Time.zone = cookies["time_zone"]
+		end
+
+Or add to view to set default from cookie (e.g. simple_form)
+
+	<%= f.input :time_zone, priority: /US/, :default => cookies["time_zone"] %>
+	
 ## Contributing
 
 1. Fork it

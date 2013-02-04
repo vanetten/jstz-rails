@@ -2,6 +2,7 @@ require "jstz-rails/version"
 
 module Jstz
   module Rails
-    # Your code goes here...
+    class Engine < ::Rails::Engine
+    end
   end
 end
