@@ -73,7 +73,7 @@ Add to **application_controller.rb** to set application's timezone from cookie
 
 Or add to view to set default from cookie (e.g. simple_form)
 
-	<%= f.input :time_zone, priority: /US/, :default => ActiveSupport::TimeZone.all.keep_if {|zone| zone.tzinfo == TZInfo::Timezone.get(cookies["time_zone"])}.first %>
+	<%= f.input :time_zone, priority: /US/, :default => ActiveSupport::TimeZone.all.reject {|zone| zone.tzinfo != TZInfo::Timezone.get(cookies["time_zone"])}.first.name %>
 	
 ## Contributing
 
