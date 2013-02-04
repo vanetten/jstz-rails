@@ -14,20 +14,20 @@ This is [jstz.js aka jsTimezoneDetect](https://bitbucket.org/pellepim/jstimezone
 	git commit -am "initial jstz-rails"
 	git remote add origin git@github.com:vanetten/jstz-rails.git
 
-* modify **lib/gridster-rails/version.rb** to match gridster.js version
+* modify **lib/jstz-rails/version.rb** to match jstz.js version
 
-		VERSION = "0.1.0.1"
+		VERSION = "1.0.4.1"
 
-* modify **lib/gridster-rails.rb** to subclass Rails::Engine
+* modify **lib/jstz-rails.rb** to subclass Rails::Engine
 
 		class Engine < ::Rails::Engine
 		end
 
-* modify **gridster-rails.gemspec**
+* modify **jstz-rails.gemspec**
 
-		gem.description   = "This gem provides jquery.gridster.js and jquery.gridster.css for your Rails 3 application."
-		gem.summary       = "Use gridster with Rails 3"
-		gem.homepage      = "http://rubygems.org/gems/gridster-rails"
+		gem.description   = "This gem provides jstz.js and for your Rails 3 application."
+		gem.summary       = "Use jstz with Rails 3"
+		gem.homepage      = "http://rubygems.org/gems/jstz-rails"
 		gem.files = Dir["{lib,vendor}/**/*"] + ["LICENSE", "README.md"]
 		gem.add_dependency "railties", "~> 3.1"
 
