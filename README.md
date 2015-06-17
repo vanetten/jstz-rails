@@ -61,7 +61,7 @@ Add to **application.js**
 
 Add to **your.js** to write browser detected timezone to a cookie
 
-	document.cookie = 'time_zone='+jstz.determine().timezone.name()+';';
+	document.cookie = 'time_zone='+jstz.determine().name()+';';
 
 Add to **application_controller.rb** to set application's timezone from cookie
 
