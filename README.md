@@ -1,6 +1,6 @@
 # Jstz::Rails
 
-This is [jstz.js aka jsTimezoneDetect](https://bitbucket.org/pellepim/jstimezonedetect/) GEMified for the Rails >= 3.1 asset pipeline through the following:
+This is [jstz.js aka jsTimezoneDetect](https://bitbucket.org/pellepim/jstimezonedetect/) GEMified for the Rails >= 4.1 asset pipeline through the following:
 
 	bundle gem jstz-rails
 	cd jstz-rails
@@ -57,19 +57,30 @@ Or install it yourself as:
 
 Add to **application.js**
 
-	//= require jstz.js
+	//= require jstz
 
 Add to **your.js** to write browser detected timezone to a cookie
-
-	document.cookie = 'time_zone='+jstz.determine().timezone.name()+';';
+	
+	var timeZone = jstz.determine();
+	document.cookie = 'time_zone='+timeZone.name()+';';
 
 Add to **application_controller.rb** to set application's timezone from cookie
 
 	before_filter :set_timezone
 	private
 		def set_timezone
-			Time.zone = cookies["time_zone"]
+			Time.zone = cookies[:time_zone]
 		end
+
+Another example of cookie usage in **application_controller.rb**
+
+	around_action :set_timezone
+	private
+		def set_timezone
+			Time.use_zone(cookies[:time_zone]) do
+	      			yield
+	    		end
+	  	end
 
 Or add to view to set default from cookie (e.g. simple_form)
 
